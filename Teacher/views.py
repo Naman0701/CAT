@@ -23,6 +23,8 @@ def Attend(req):
     d = {
         'b':b,
         'name': data.get().Fname + ' ' + data.get().Lname,
+        'work':'Attend',
+        'role':'Teacher'
         }
 
     return render(req,'T_attend.html',d)
@@ -46,7 +48,9 @@ def en_Attend(req,sub,class_id):
         'name': data.get().Fname + ' ' + data.get().Lname,
         'sub': sub,
         's_name':s_name,
-        'class_id': class_id
+        'class_id': class_id,
+        'work':'Attend',
+        'role':'Teacher'
     }
     dates=Attendance.objects.filter(Sub_code=sub,Date=date.today(),Usn__enroll__Class_id=class_id)
     if dates.exists():
@@ -75,7 +79,9 @@ def add_attend(req,sub,class_id):
         'name': data.get().Fname + ' ' + data.get().Lname,
         'sub': sub,
         's_name': s_name,
-        'class_id': class_id
+        'class_id': class_id,
+        'work':'Attend',
+        'role':'Teacher'
 
     }
     return render(req,'T_add.html',d)
@@ -149,14 +155,16 @@ def v_Attend(req,sub,class_id):
         obj.Usn=i.Usn
         obj.Name=f'{i.Usn.Fname} {i.Usn.Lname}'
         obj.tc=tc
-        obj.ap=ap 
+        obj.ap=ap
         obj.ac=ac
         b.append(obj)
     d={
         'b':b,
         'name': teach.get().Fname + ' ' + teach.get().Lname,
         's_name':Subject.objects.filter(Sub_code=sub).get().Sub_name,
-        'class_id':class_id
+        'class_id':class_id,
+        'work':'Attend',
+        'role':'Teacher'
     }
 
     return render(req,'T_class_attend.html',d)
@@ -180,7 +188,9 @@ def e_Attend(req,sub,class_id):
         'name': teach.get().Fname + ' ' + teach.get().Lname,
         's_name': Subject.objects.filter(Sub_code=sub).get().Sub_name,
         's_code':sub,
-        'class_id': class_id
+        'class_id': class_id,
+        'work':'Attend',
+        'role':'Teacher'
     }
     return render(req,'T_editatt.html',d)
 
@@ -208,7 +218,9 @@ def ed_Attend(req,sub,class_id,dat):
         's_name': Subject.objects.filter(Sub_code=sub).get().Sub_name,
         's_code':sub,
         'dat':dat,
-        'class_id': class_id
+        'class_id': class_id,
+        'work':'Attend',
+        'role':'Teacher'
     }
     return render(req,'T_edit_A.html',d)
 def up_attend(req,sub,class_id,dat):
@@ -245,7 +257,9 @@ def del_Attend(req,sub,class_id,dat):
         's_name': Subject.objects.filter(Sub_code=sub).get().Sub_name,
         's_code': sub,
         'class_id': class_id,
-        'dat':dat
+        'dat':dat,
+        'work':'Attend',
+        'role':'Teacher'
     }
 
     return render(req,'T_conf_del.html',d)
@@ -278,6 +292,8 @@ def aicte(req):
     d = {
         'b':b,
         'name': data.get().Fname + ' ' + data.get().Lname,
+        'work':'Aicte',
+        'role':'Teacher'
     }
     return render(req,'T_aicte.html',d)
 
@@ -289,6 +305,8 @@ def a_aicte(req,usn):
         's_n': s_name,
         'usn':usn,
         'name': data.get().Fname + ' ' + data.get().Lname,
+        'work':'Aicte',
+        'role':'Teacher'
     }
     return render(req,'T_a_aicte.html',d)
 
@@ -325,6 +343,8 @@ def v_aicte(req,usn):
         'usn':usn,
         's_n':s_name,
         'name': data.get().Fname + ' ' + data.get().Lname,
+        'work':'Aicte',
+        'role':'Teacher'
     }
     return render(req,'T_v_aicte.html',d)
 def d_aicte(req,usn,isd):
@@ -353,6 +373,8 @@ def d_aicte(req,usn,isd):
         'a_name':AicteP.objects.get(id=isd).Activity,
         's_n':s_name,
         'name': data.get().Fname + ' ' + data.get().Lname,
+        'work':'Aicte',
+        'role':'Teacher'
     }
     return render(req,'T_del_aicte.html',d)
 def cd_aicte(req,usn,isd):

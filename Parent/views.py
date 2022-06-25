@@ -1,10 +1,23 @@
 from django.shortcuts import render,redirect,HttpResponse
-from Home.models import Student,Teacher,Subject,Attendance,Mentor,AicteP
+from Home.models import Student,Parent,Teacher,Subject,Attendance,Mentor,AicteP
 from django.contrib.auth.models import User,auth
+from Student import views
 
 def Attend(req):
-    pass
-def Attendance_Subject(req):
-    pass
+    pid = f"+91{req.session['id']}"
+    id=Parent.objects.filter(Phone=pid).get().Usn.Usn
+    d=views.do_attend(id)
+    d['role']='Parent'
+    return render(req, 'S_attendance.html', d)
+def Attendance_Subject(req,sub):
+    pid = f"+91{req.session['id']}"
+    id=Parent.objects.filter(Phone=pid).get().Usn.Usn
+    d=views.do_Att_sub(id,sub)
+    d['role']='Parent'
+    return render(req,'attend_subject.html',d)
 def aicte(req):
-    pass
+    pid = f"+91{req.session['id']}"
+    id = Parent.objects.filter(Phone=pid).get().Usn.Usn
+    d = views.do_aicte(id)
+    d['role'] = 'Parent'
+    return render(req,'Aicte.html',d)

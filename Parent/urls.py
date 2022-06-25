@@ -5,6 +5,6 @@ from . import views
 
 urlpatterns = [
     path("ATTENDANCE/",views.Attend,name="Attendance"),
-    path("ATTENDANCE/<subject>",views.Attendance_Subject,name="Attendance_Subject"),
+    path("ATTENDANCE/<sub>",views.Attendance_Subject,name="Attendance_Subject"),
     path("AICTE/",views.aicte,name="aicte"),
     ]

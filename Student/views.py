@@ -51,6 +51,8 @@ def do_attend(id):
     d={
         'b':b,
     'name': data.get().Fname + ' ' + data.get().Lname,
+    'work':'Attend',
+        'role':'Student'
     }
     return d
 
@@ -79,7 +81,9 @@ def do_Att_sub(id,subject):
     d={
         'b':b,
         'name': data.get().Fname + ' ' + data.get().Lname,
-        'sub':sub.get().Sub_name
+        'sub':sub.get().Sub_name,
+    'work':'Attend',
+        'role':'Student'
     }
     return d
 
@@ -113,6 +117,8 @@ def do_aicte(id):
         'id':id,
         'name':data.get().Fname + ' ' + data.get().Lname,
         'm_name':m_name,
-        'sum':Ment.Points
+        'sum':Ment.Points,
+    'work':'Aicte',
+        'role':'Student'
     }
     return d

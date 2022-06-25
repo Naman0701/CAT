@@ -9,25 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{%static '/style/S_attend.css' %}">
 
-
     <title>CAAT</title>
 </head>
 <body>
-    <div class="nav flex">
-        <a>College Attendance And AICTE Points Tracker</a>
-        <a>{{ name }}</a>
-    </div>
+    {% include 'welcome.html' %}
     <!-- Content -->
     <div id="blur_it" class="content flex" disabled>
-        <div class="side flex">
-            <button class="nav_btn on" type="button">Attendance</button>
-            <button class="nav_btn"  type="button">AICTE</button>
 
-            <button class="nav_btn" type="button">Log Out</button>
-        </div>
+        {% include 'nav.html' %}
 
         <div class="main">
-            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ dept }}-{{ sem }}{{ sec }} <button class="add_b" onclick="location.href='/home/Teacher/ATTENDANCE/add/{{ s_code }}/{{ dept }}/{{ sem }}/{{ sec }}'" type="button">Add ➕</button></h4></div>
+            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ class_id }}<button class="add_b" onclick="location.href='/home/Teacher/ATTENDANCE/add/{{ s_code }}/{{ dept }}/{{ sem }}/{{ sec }}'" type="button">Add ➕</button></h4></div>
                 <table class="tab">
                 <tr>
                     <th>Date</th>

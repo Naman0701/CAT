@@ -29,7 +29,7 @@
         <section id="main">
             <div id="services" class="flex">
                 {% for i in b %}
-                <a href="/home/{{ staff }}/{{ i.title }}" class="option center">
+                <a href="/home/{{ staff }}/{{ i.link }}" class="option center">
                     <img src="{{ image }}/{{ i.img }}" alt="{{ i.img }}">
                     <h2>{{ i.title }}</h2>
                     <p>{{ i.desc }}</p>

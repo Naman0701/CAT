@@ -17,18 +17,11 @@
     var p2=localStorage.getItem("id");
     console.log(p2);
 </script>
-    <div class="nav flex">
-        <a>College Attendance And AICTE Points Tracker</a>
-        <a>{{ name }}</a>
-    </div>
+    {% include 'welcome.html' %}
     <!-- Content -->
     <div class="content flex">
-        <div class="side flex">
-            <button class="nav_btn on" onclick="location.href='/home/Teacher/ATTENDANCE/'" type="button">Attendance</button>
-            <button class="nav_btn" onclick="location.href='/home/Teacher/AICTE/'" type="button">AICTE</button>
 
-            <button class="nav_btn" onclick="location.href='/home/logout'" type="button">Log Out</button>
-        </div>
+        {% include 'nav.html' %}
 
         <div class="main">
             <div class="minhead flex"><h4>ATTENDANCE  {{ s_name }} : {{ class_id }}</h4></div>

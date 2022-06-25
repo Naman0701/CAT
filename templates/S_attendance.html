@@ -17,18 +17,10 @@
     var p2=localStorage.getItem("id");
     console.log(p2);
 </script>
-    <div class="nav flex">
-        <a>College Attendance And AICTE Points Tracker</a>
-        <a>{{ name }}</a>
-    </div>
+    {% include 'welcome.html' %}
     <!-- Content -->
     <div class="content flex">
-        <div class="side flex">
-            <button class="nav_btn on" onclick="location.href='/home/Student/ATTENDANCE/'" type="button">Attendance</button>
-            <button class="nav_btn" onclick="location.href='/home/Student/AICTE/'" type="button">AICTE</button>
-
-            <button class="nav_btn" onclick="location.href='/home/logout'" type="button">Log Out</button>
-        </div>
+        {% include 'nav.html' %}
 
         <div class="main">
             <div class="minhead flex"><h4>ATTENDANCE</h4></div>
@@ -42,10 +34,10 @@
                 </tr>
                 {% for i in b %}
                 <tr>
-                    <td><a href="/home/Student/ATTENDANCE/{{ i.c_name }}">{{ i.c_id }}</a></td>
-                    <td><a href="/home/Student/ATTENDANCE/{{ i.c_name }}">{{ i.c_name }}</a></td>
-                    <td><a href="/home/Student/ATTENDANCE/{{ i.c_name }}">{{ i.ac }}</a></td>
-                    <td><a href="/home/Student/ATTENDANCE/{{ i.c_name }}">{{ i.tc }}</a></td>
+                    <td><a href="/home/{{ role }}/ATTENDANCE/{{ i.c_name }}">{{ i.c_id }}</a></td>
+                    <td><a href="/home/{{ role }}/ATTENDANCE/{{ i.c_name }}">{{ i.c_name }}</a></td>
+                    <td><a href="/home/{{ role }}/ATTENDANCE/{{ i.c_name }}">{{ i.ac }}</a></td>
+                    <td><a href="/home/{{ role }}/ATTENDANCE/{{ i.c_name }}">{{ i.tc }}</a></td>
                     <td style="background-color: {{ i.col}}; color:white"><a href="#">{{ i.ap }}%</a></td>
                 </tr>
                 {% endfor %}
