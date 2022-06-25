@@ -26,7 +26,7 @@
 
         <div class="box flex">
             <form name="log_in" id="log_in" class="items" action="/home/" method="post"> {% csrf_token %}
-            <input type="text" placeholder="USN OR SSN" class="user" name="id" required>
+            <input type="text" placeholder="USN / SSN / Phone No" class="user" name="id" required>
             <input type="password" placeholder="Password" class="user" name="pwd" minlength="7" maxlength="20" required>
             <input type="hidden" name="action" value="log_in">
 
@@ -43,17 +43,18 @@
 
         <div class="reg_box">
           <form name="register" id="register" class="reg_items" action="/" method="post"> {% csrf_token %}
-            <input type="text" placeholder="USN or SSN" class="user" name="id" required>
+            <input type="text" placeholder="USN / SSN / Phone No" class="user" name="id" required>
             <input type="password" id="pwd1" placeholder="Password" class="user" name="pwd" minlength="7" maxlength="20" required>
             <input type="password" id="pwd2" placeholder="Confirm Password" class="user" name="cpwd" onchange="check_pass()" minlength="7" maxlength="20" required>
             <input type="hidden" name="action" value="register">
 
             <div class="formality flex">
-            <label class="switch">
-                <input type="checkbox" name="role" id="role">
-                <span class="slider"></span>
-            </label>
-            <label for="role" class="rem">Register as Lecturer</label>
+            <label for="role" class="rem">Register as :</label>
+            <select id="role" class="role" name="role">
+                <option value="S">Student</option>
+                <option value="P">Parent</option>
+                <option value="T">Teacher</option>
+            </select>
             <a href="#" class="forg">Have an<br> account?<br>Login Here</a>
 
             </div>

@@ -31,8 +31,8 @@
         </div>
 
         <div class="main">
-            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ dept }}-{{ sem }}{{ sec }}</h4></div>
-            <form name="update" id="update" action="/home/Teacher/ATTENDANCE/add/submit/{{ sub }}/{{ dept }}/{{ sem }}/{{ sec }}" method="post"> {% csrf_token %}
+            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ class_id }}</h4></div>
+            <form name="update" id="update" action="/home/Teacher/ATTENDANCE/add/submit/{{ sub }}/{{ class_id }}" method="post"> {% csrf_token %}
             <div class="minhead date flex"><h4>
                 <label for="date">Enter Date :</label>
                 <input type="Date" id="date" name="date"  required>

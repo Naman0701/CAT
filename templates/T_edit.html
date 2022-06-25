@@ -31,9 +31,9 @@
         </div>
 
         <div class="main">
-            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ dept }}-{{ sem }}{{ sec }}</h4></div>
+            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ class_id }}</h4></div>
             <div class="minhead date flex"><h4>{{ date }}</h4></div>
-            <form name="register" id="register" class="reg_items" action="/home/Teacher/ATTENDANCE/enter/{{ sub }}/{{ dept }}/{{ sem }}/{{ sec }}/submit" method="post"> {% csrf_token %}
+            <form name="register" id="register" class="reg_items" action="/home/Teacher/ATTENDANCE/enter/{{ sub }}/{{ class_id }}/submit" method="post"> {% csrf_token %}
                 <table class="tab">
                 <tr>
                     <th>Usn</th>

@@ -26,7 +26,7 @@
         </div>
 
         <div class="main">
-            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ dept }}-{{ sem }}{{ sec }} <button class="add_b" onclick="location.href='/home/Teacher/ATTENDANCE/add/{{ s_code }}/{{ dept }}/{{ sem }}/{{ sec }}'" type="button">Add ➕</button></h4></div>
+            <div class="minhead flex"><h4>ATTENDANCE {{ s_name }} : {{ class_id }} <button class="add_b" onclick="location.href='/home/Teacher/ATTENDANCE/add/{{ s_code }}/{{ class_id }}'" type="button">Add ➕</button></h4></div>
                 <table class="tab">
                 <tr>
                     <th>Date</th>
@@ -37,11 +37,11 @@
                     <td>{{ i }}</td>
                     <td>
                        <button class="btn"style="background-color: #0d6efd ;border-color: #0d6efd; margin-right: 7px"
-                         onclick="location.href='/home/Teacher/ATTENDANCE/edit/{{ s_code }}/{{ dept }}/{{ sem }}/{{ sec }}/{{ i }}'" type="button">
+                         onclick="location.href='/home/Teacher/ATTENDANCE/edit/{{ s_code }}/{{ class_id }}/{{ i }}'" type="button">
                             Edit Attendance
                         </button>
                         <button class="btn"style="background-color: #dc3545 ;border-color: #dc3545; margin-right: 7px"
-                         onclick="location.href='/home/Teacher/ATTENDANCE/del/{{ s_code }}/{{ dept }}/{{ sem }}/{{ sec }}/{{ i }}'" type="button">
+                         onclick="location.href='/home/Teacher/ATTENDANCE/del/{{ s_code }}/{{ class_id }}/{{ i }}'" type="button">
                             Delete Attendance
                         </button>
                     </td>

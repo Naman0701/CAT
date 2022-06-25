@@ -9,5 +9,6 @@ urlpatterns = [
     path("home/",views.home,name="home"),
     path('home/logout',views.logout,name="logout"),
     path("home/Student/", include('Student.urls')),
-    path("home/Teacher/", include('Teacher.urls'))
+    path("home/Teacher/", include('Teacher.urls')),
+    path("home/Parent/", include('Parent.urls'))
 ]

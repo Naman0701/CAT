@@ -1,8 +1,12 @@
 from django.shortcuts import render,redirect,HttpResponse
-from Home.models import Student,Teacher,Subject,Attendance,Mentor,AicteP
+from Home.models import Student,Teacher,Subject,Attendance,Mentor,AicteP,Enroll,Class,Teaches
 from django.contrib.auth.models import User,auth
 
 def Attend(req):
+    id=req.session['id']
+    d=do_attend(id)
+    return render(req,'S_attendance.html',d)
+def do_attend(id):
     class box:
         c_id: str
         c_name: str
@@ -11,18 +15,18 @@ def Attend(req):
         ap: int
         col: str
     b=[]
-    id=req.session['id']
     data=Student.objects.filter(Usn=id)
-    Sem=data.get().Sem
-    Dept=data.get().Dept
-    if Dept=='ISE':
-        Dept='CSE'
-    Sub=Subject.objects.filter(Sem=Sem).filter(Dept=Dept)
-    Atd=Attendance.objects.filter(Usn=id)
+    cid=Enroll.objects.filter(Usn=id)
+    corid=[]
+    for i in cid:
+        courses=Teaches.objects.filter(Class_id=i.Class_id)
+        for j in courses:
+            corid.append(j.Sub_code)
+    print(corid)
     tc=0
     ac=0
     ap=0
-    for i in Sub:
+    for i in corid:
         obj=box()
         obj.c_id=i.Sub_code
         obj.c_name=i.Sub_name
@@ -48,14 +52,18 @@ def Attend(req):
         'b':b,
     'name': data.get().Fname + ' ' + data.get().Lname,
     }
-    return render(req,'S_attendance.html',d)
+    return d
 
 def Attendance_Subject(req,subject):
+    id = req.session['id']
+    d=do_Att_sub(id,subject)
+    return render(req,'attend_subject.html',d)
+
+def do_Att_sub(id,subject):
     b=[]
     class box:
         date:str
         img:str
-    id = req.session['id']
     data = Student.objects.filter(Usn=id)
     sub= Subject.objects.filter(Sub_name=subject)
     code=sub.get().Sub_code
@@ -73,17 +81,20 @@ def Attendance_Subject(req,subject):
         'name': data.get().Fname + ' ' + data.get().Lname,
         'sub':sub.get().Sub_name
     }
-    return render(req,'attend_subject.html',d)
-
+    return d
 
 def aicte(req):
+    id = req.session['id']
+    d=do_aicte(id)
+    return render(req,'Aicte.html',d)
+
+def do_aicte(id):
     b=[]
     class box:
         name:str
         point:int
         date:str
     sum=0
-    id = req.session['id']
     data = Student.objects.filter(Usn=id)
     m_name= f'{Mentor.objects.filter(Usn=id).get().mentor_d.Fname} {Mentor.objects.filter(Usn=id).get().mentor_d.Lname}'
     allwork=AicteP.objects.filter(Usn=id).order_by('-Date')
@@ -104,4 +115,4 @@ def aicte(req):
         'm_name':m_name,
         'sum':Ment.Points
     }
-    return render(req,'Aicte.html',d)
+    return d

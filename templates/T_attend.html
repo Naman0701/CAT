@@ -57,18 +57,18 @@
                 <tr>
                     <td>{{ i.s_code }}</td>
                     <td>{{ i.s_name }}</td>
-                    <td>{{ i.dept }} -{{ i.sem }}{{ i.sec }}</td>
+                    <td>{{ i.class_id}}</td>
                     <td>
                         <button class="btn" style="background-color: #198754;border-color: #198754"
-                        onclick="location.href='/home/Teacher/ATTENDANCE/enter/{{ i.s_code }}/{{ i.dept }}/{{ i.sem }}/{{ i.sec }}'" type="button">
+                        onclick="location.href='/home/Teacher/ATTENDANCE/enter/{{ i.s_code }}/{{ i.class_id }}'" type="button">
                             Today's Attendance
                         </button>
                         <button class="btn" style="background-color: #0d6efd;border-color: #0d6efd"
-                        onclick="location.href='/home/Teacher/ATTENDANCE/view/{{ i.s_code }}/{{ i.dept }}/{{ i.sem }}/{{ i.sec }}'" type="button">
+                        onclick="location.href='/home/Teacher/ATTENDANCE/view/{{ i.s_code }}/{{ i.class_id }}'" type="button">
                             View Attendance
                         </button>
                         <button class="btn"style="background-color: #dc3545;border-color: #dc3545"
-                        onclick="location.href='/home/Teacher/ATTENDANCE/edit/{{ i.s_code }}/{{ i.dept }}/{{ i.sem }}/{{ i.sec }}'" type="button">
+                        onclick="location.href='/home/Teacher/ATTENDANCE/edit/{{ i.s_code }}/{{ i.class_id }}'" type="button">
                             Edit Attendance
                         </button>
                     </td>

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Student,Teacher
+from .models import Student,Teacher,Parent
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
@@ -13,13 +13,21 @@ class box:
 def register(req):
     id = req.POST.get('id')
     pwd = req.POST.get('pwd')
-    role = req.POST.get('role', 'off')
-    if role=='on':
+    role = req.POST.get('role')
+    print(role)
+    if role=='T':
         staff=True
         data=Teacher.objects.filter(Ssn=id)
-    else:
+        print('teach')
+    elif role=='S':
         staff = False
         data=Student.objects.filter(Usn=id)
+        print('bacha')
+    else:
+        staff=False
+        temp='+91'+id
+        data=Parent.objects.filter(Phone=temp)
+        print('baap')
     if data.exists():
         if not User.objects.filter(username=id).exists():
             user=User.objects.create_user(username=id,
@@ -33,7 +41,7 @@ def register(req):
             messages.success(req, 'User Already Registered')
 
     else:
-        messages.success(req, 'Invalid USN or SSN')
+        messages.success(req, 'Invalid Credentials')
 
 
 def login(req):
@@ -49,20 +57,28 @@ def login(req):
 
 def home(req):
     id = req.POST.get('id')
-    print(id)
     req.session['id']=id
     pwd = req.POST.get('pwd')
+    kid=''
     user=auth.authenticate(username=id, password=pwd)
-    at = ('Enter the attendance of the students.', 'View your attendance.')
-    ai = ('Enter the AICTE points of the students based on the activites attended.',
-          'View your AICTE points based on the activites attended.')
+    i = 1
+    staff='Student'
+    at = ('Enter the attendance of the students.', 'View your attendance.',"View your child's attendance.")
+    ai = ('Enter the AICTE points of the students based on the activities attended.',
+          'View your AICTE points based on the activities attended.',"View your child's AICTE points and activities.")
+    ia=('Enter Internal Marks of the students','View your Internal Marks',"View your child's Internal Score")
+    vtu=('Enter University Marks of the students','View your University Marks',"View your child's University Marks")
     if user is not None:
         data=User.objects.filter(username=id)
         if data.get().is_superuser:
             return redirect('/admin')
+        check_parent=Parent.objects.filter(Phone=('+91'+id))
+        if check_parent.exists():
+            kid_usn=check_parent.get().Usn
+            kid=f'Parent of {kid_usn.Fname} {kid_usn.Lname}'
+            staff='Parent'
+            i=2
         role=data.get().is_staff
-        i = 1
-        staff='Student'
         if role ==True:
             i = 0
             staff='Teacher'
@@ -76,12 +92,23 @@ def home(req):
         b2.title = 'AICTE'
         b2.desc = ai[i]
 
-        b = [b1, b2]
+        b3 =box()
+        b3.img='ia.png'
+        b3.title='Internal_Marks'
+        b3.desc=ia[i]
+
+        b4=box()
+        b4.img='vtu.png'
+        b4.title='University_Marks'
+        b4.desc=vtu[i]
+
+        b = [b1, b2,b3,b4]
 
         d = {'b': b,
              'name': data.get().first_name + ' ' + data.get().last_name,
              'staff':staff,
-             'id':id
+             'id':id,
+             'kid':kid
              }
         return render(req, 'home.html', d)
     else:

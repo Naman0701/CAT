@@ -9,7 +9,7 @@ SECRET_KEY = 'django-insecure-i=j9we7c8xx6w8uv$&3@n3pc#-0ko9xt@ah3bovn6(m6eq$l=i
 
 ALLOWED_HOSTS = ['caat0701.herokuapp.com','localhost','127.0.0.1','college-erp-0701.herokuapp.com']
 
-DEBUG=False
+DEBUG=True
 
 CSRF_TRUSTED_ORIGINS = ['https://*.caat0701.herokuapp.com','https://*.127.0.0.1']
 
@@ -24,7 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Student.apps.StudentConfig',
     'Teacher.apps.TeacherConfig',
-    'Home.apps.HomeConfig'
+    'Home.apps.HomeConfig',
+    'Parent.apps.ParentConfig'
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ WSGI_APPLICATION = 'CAAT.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'caat',
+        'NAME': 'project',
         'USER': 'postgres',
         'PASSWORD': 'Iloveu3000',
         'HOST': 'localhost'
