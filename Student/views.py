@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,HttpResponse
-from Home.models import Student,Teacher,Subject,Attendance,Mentor,AicteP,Enroll,Class,Teaches
+from Home.models import Student,Teacher,Subject,Attendance,Mentor,AicteP,Enroll,Class,Teaches,Internal,External
 from django.contrib.auth.models import User,auth
 
 def Attend(req):
@@ -22,7 +22,6 @@ def do_attend(id):
         courses=Teaches.objects.filter(Class_id=i.Class_id)
         for j in courses:
             corid.append(j.Sub_code)
-    print(corid)
     tc=0
     ac=0
     ap=0
@@ -120,5 +119,92 @@ def do_aicte(id):
         'sum':Ment.Points,
     'work':'Aicte',
         'role':'Student'
+    }
+    return d
+def ia(req):
+    id = req.session['id']
+    d=do_ia(id)
+    return render(req,'ia.html',d)
+def do_ia(id):
+    class box:
+        c_id: str
+        c_name: str
+        i1: str
+        i2: str
+        i3: str
+        asnmt: str
+
+    b = []
+    default='--'
+    data = Student.objects.filter(Usn=id)
+    cid = Enroll.objects.filter(Usn=id)
+    corid = []
+    for i in cid:
+        courses = Teaches.objects.filter(Class_id=i.Class_id)
+        for j in courses:
+            corid.append(j.Sub_code)
+
+    for i in corid:
+        obj=box()
+        obj.c_id=i.Sub_code
+        obj.c_name=i.Sub_name
+        a=Internal.objects.filter(Usn=id).filter(Sub_code=i.Sub_code)
+        if not a.exists():
+            new=Internal.objects.create(Usn=data.first(),Sub_code=i)
+            new.save()
+        obj.i1=a.get().IA1 if a.get().IA1!=None else default
+        obj.i2=a.get().IA2 if a.get().IA2!=None else default
+        obj.i3=a.get().IA3 if a.get().IA3!=None else default
+        obj.asnmt=a.get().Assignment if a.get().Assignment!=None else default
+        b.append(obj)
+    d = {
+        'b': b,
+        'name': data.get().Fname + ' ' + data.get().Lname,
+        'work': 'IA',
+        'role': 'Student'
+    }
+    return d
+def vtu(req):
+    id = req.session['id']
+    d=do_vtu(id)
+    return render(req,'vtu.html',d)
+def do_vtu(id):
+    class box:
+        c_id: str
+        c_name: str
+        ia: str
+        exam: str
+        total: str
+        result: str
+        grade: str
+
+    b = []
+    data = Student.objects.filter(Usn=id)
+    cid = Enroll.objects.filter(Usn=id)
+    corid = []
+    for i in cid:
+        courses = Teaches.objects.filter(Class_id=i.Class_id)
+        for j in courses:
+            corid.append(j.Sub_code)
+    for i in corid:
+        obj=box()
+        obj.c_id = i.Sub_code
+        obj.c_name = i.Sub_name
+        a = Internal.objects.filter(Usn=id).filter(Sub_code=i.Sub_code)
+        exam= External.objects.filter(Usn=id).filter(Sub_code=i.Sub_code)
+        if not exam.exists():
+            new=External.objects.create(Usn=data.first(),Sub_code=i)
+            new.save()
+        I1=a.get().IA1 if a.get().IA1!='AB' else '0'
+        I2=a.get().IA2 if a.get().IA2!='AB' else '0'
+        I3=a.get().IA3 if a.get().IA3!='AB' else '0'
+        Asn=a.get().Assignment if a.get().Assignment!='AB' else '0'
+        print(I1,I2,I3,Asn)
+        b.append(obj)
+    d={
+        'b': b,
+        'name': data.get().Fname + ' ' + data.get().Lname,
+        'work': 'VTU',
+        'role': 'Student'
     }
     return d

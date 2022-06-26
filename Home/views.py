@@ -15,20 +15,16 @@ def register(req):
     id = req.POST.get('id')
     pwd = req.POST.get('pwd')
     role = req.POST.get('role')
-    print(role)
     if role=='T':
         staff=True
         data=Teacher.objects.filter(Ssn=id)
-        print('teach')
     elif role=='S':
         staff = False
         data=Student.objects.filter(Usn=id)
-        print('bacha')
     else:
         staff=False
         temp='+91'+id
         data=Parent.objects.filter(Phone=temp)
-        print('baap')
     if data.exists():
         if not User.objects.filter(username=id).exists():
             user=User.objects.create_user(username=id,

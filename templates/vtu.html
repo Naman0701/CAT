@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% include 'start.html' %}
 <body>
+    {% include 'welcome.html' %}
+    <!-- Content -->
+    <div class="content flex">
+        {% include 'nav.html' %}
+
+        <div class="main">
+            <div class="minhead flex"><h4>University Marks</h4></div>
+            <table class="tab">
+                <tr>
+                    <th width="17%">Course ID</th>
+                    <th width="17%">Course Name</th>
+                    <th width="17%">Internal Marks</th>
+                    <th width="17%">External Marks</th>
+                    <th width="17%">Total</th>
+                    <th width="7.5%">Result</th>
+                    <th width="7.5%">Grade</th>
+                </tr>
+                {% for i in b %}
+                <tr>
+                    <td>{{ i.c_id }}</td>
+                    <td>{{ i.c_name }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 
 </body>
 </html>

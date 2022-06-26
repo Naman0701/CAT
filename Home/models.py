@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator,MinValueValidator
+from django.core.validators import MaxValueValidator,MinValueValidator,RegexValidator
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Student(models.Model):
@@ -75,6 +75,8 @@ class Class(models.Model):
 
 
 class Enroll(models.Model):
+    class Meta:
+        unique_together=(('Class_id','Usn'),)
     Class_id = models.ForeignKey(Class, null=True, on_delete=models.SET_NULL)
     Usn = models.ForeignKey(Student, on_delete=models.CASCADE)
 
@@ -84,6 +86,8 @@ class Enroll(models.Model):
 
 
 class Teaches(models.Model):
+    class Meta:
+        unique_together=(('Teacher_id','Sub_code','Class_id'),)
     Teacher_id = models.ForeignKey(Teacher, null=True, on_delete=models.SET_NULL)
     Sub_code = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
     Class_id = models.ForeignKey(Class, null=True, on_delete=models.SET_NULL)
@@ -105,28 +109,38 @@ class Attendance(models.Model):
 
 
 class Internal(models.Model):
+    class Meta:
+        unique_together=(('Sub_code','Usn'),)
     Usn = models.ForeignKey(Student, on_delete=models.CASCADE)
     Sub_code = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    IA1=models.IntegerField(null=True)
-    IA2=models.IntegerField(null=True)
-    IA3=models.IntegerField(null=True)
+    marks=RegexValidator(regex=r'^(0?\d|[1-4]\d|50|AB)$',message="Either enter marks between 0 to 50 or AB")
+    amarks=RegexValidator(regex=r'^([0-9]|10)$',message="Enter marks between 0 to 10")
+    IA1=models.CharField(null=True,max_length=2,validators=[marks],blank=True)
+    IA2=models.CharField(null=True,max_length=2,validators=[marks],blank=True)
+    IA3=models.CharField(null=True,max_length=2,validators=[marks],blank=True)
+    Assignment=models.CharField(null=True,max_length=2,validators=[amarks],blank=True)
+
     def __str__(self):
         return f'{self.Usn}-{self.Sub_code}'
 
 
 class External(models.Model):
+    class Meta:
+        unique_together=(('Sub_code','Usn'),)
     Usn = models.ForeignKey(Student, on_delete=models.CASCADE)
     Sub_code = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    Exam=models.IntegerField()
-    Final_IA=models.IntegerField()
-    Total=models.IntegerField()
-    Grade=models.IntegerField(default=10,validators=[MaxValueValidator(10),MinValueValidator(1)])
+    marks=RegexValidator(regex=r'^(0?\d|[1-9]\d|100)$',message="Enter marks between 0 to 100 ")
+    emarks=RegexValidator(regex=r'^(0?\d|[1-5]\d|60|AB)$',message="Either enter marks between 0 to 60 or AB ")
+    Exam=models.CharField(default=0,max_length=2,validators=[emarks])
+    FinalIA=models.IntegerField(default=0,blank=True)
+    Total=models.CharField(null=True,max_length=3,validators=[marks],blank=True)
+    Grade=models.IntegerField(null=True,blank=True,validators=[MaxValueValidator(10),MinValueValidator(1)])
     def __str__(self):
         return f'{self.Usn}-{self.Sub_code}'
 
 
 class Mentor(models.Model):
-    Usn = models.ForeignKey(Student, on_delete=models.CASCADE)
+    Usn = models.ForeignKey(Student, on_delete=models.CASCADE,primary_key=True)
     mentor_d = models.ForeignKey(Teacher, null=True, on_delete=models.SET_NULL)
     Points = models.IntegerField()
 

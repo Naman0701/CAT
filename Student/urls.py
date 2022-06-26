@@ -7,4 +7,6 @@ urlpatterns = [
     path("ATTENDANCE/",views.Attend,name="Attendance"),
     path("ATTENDANCE/<subject>",views.Attendance_Subject,name="Attendance_Subject"),
     path("AICTE/",views.aicte,name="aicte"),
+    path("Internal_Marks/",views.ia,name="ia"),
+    path("University_Marks/",views.vtu,name="vtu"),
     ]

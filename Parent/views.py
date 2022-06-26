@@ -21,3 +21,15 @@ def aicte(req):
     d = views.do_aicte(id)
     d['role'] = 'Parent'
     return render(req,'Aicte.html',d)
+def ia(req):
+    pid = f"+91{req.session['id']}"
+    id=Parent.objects.filter(Phone=pid).get().Usn.Usn
+    d=views.do_ia(id)
+    d['role']='Parent'
+    return render(req,'ia.html',d)
+def vtu(req):
+    pid = f"+91{req.session['id']}"
+    id=Parent.objects.filter(Phone=pid).get().Usn.Usn
+    d=views.do_vtu(id)
+    d['role']='Parent'
+    return render(req,'vtu.html',d)
